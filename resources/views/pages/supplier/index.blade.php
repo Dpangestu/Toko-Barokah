@@ -11,14 +11,14 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="add-button-container">
-                            <h5>Data Supplier</h5>
+                            <h4>Data Supplier</h4>
                             <a href="/supplier/create" class="btn btn-primary add-button">
                                 <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Tambah Supplier
                             </a>
                         </div>
                     </div>
                     <div class="table-responsive text-nowrap">
-                        <table class="table">
+                        <table class="table table-striped table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

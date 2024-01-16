@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('template/assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image" href="{{ asset('template/assets/img/favicon/1.png') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,24 +105,26 @@
                                         </g>
                                     </svg>
                                 </span> --}}
-                                <span class="app-brand-text demo text-body fw-bold">Toko Barokah</span>
+                                <div>
+                                    <a class="app-brand-text demo fw-bold">Toko Barokah</a>
+                                </div>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Belanja Happy</h4>
+                        {{-- <h5 class="mb-2">Belanja Happy</h5> --}}
 
                         <form id="formAuthentication" class="mb-3" action="index.html">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email-username"
-                                    placeholder="Email" autofocus />
+                                    placeholder="Email" value="{{ old('email') }}" autofocus />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
-                                    <a href="auth-forgot-password-basic.html">
+                                    {{-- <a href="auth-forgot-password-basic.html">
                                         <small>Lupa Passowrd?</small>
-                                    </a>
+                                    </a> --}}
                                 </div>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
@@ -142,11 +144,11 @@
                             </div>
                         </form>
 
-                        <p class="text-center">
+                        {{-- <p class="text-center">
                             <a href="auth-register-basic.html">
                                 <span>Create an account</span>
                             </a>
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
                 <!-- /Register -->
