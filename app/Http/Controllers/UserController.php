@@ -10,6 +10,7 @@ class UserController extends Controller
     {
         return view('pages.users.index', [
             'title' => 'Users',
+            'active' => 'Users',
         ]);
     }
 }

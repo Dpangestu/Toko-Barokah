@@ -10,6 +10,7 @@ class SettingController extends Controller
     {
         return view('pages.setting.index', [
             'title' => 'Setting',
+            'active' => 'Setting',
         ]);
     }
 }

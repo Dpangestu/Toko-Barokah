@@ -1,16 +1,15 @@
 @extends('layouts.main')
-
 @section('content')
+    @include('component.sweetAlert')
     <div class="content-wrapper">
-        <!-- Content -->
+
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4">Edit Produk</h4>
 
-            @include('component.sweetAlert')
-            <div class="row">
-
-                <div class="card">
-
+            <h4 class="fw-bold py-3 mb-2">
+                <span class="text-muted fw-light">Dashboard / Produk /</span> Edit Produk
+            </h4>
+            <div class="col-xxl">
+                <div class="card mb-4">
                     <div class="card-body">
                         <form action="/produk/update/{{ $produk->id_produk }}" enctype="multipart/form-data" method="post">
                             @csrf
@@ -53,13 +52,20 @@
                                 <label class="form-label" for="basic-default-company">Stok</label>
                                 <input type="text" class="form-control" name="stok" value="{{ $produk->stok }}" />
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+
+                            <div class="row mb-3 py-3">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary me-2">Simpan</button>
+                                    <button type="reset" class="btn btn-danger me-2">Reset</button>
+                                    <a href="/produk" class="btn btn-warning me-2">Back</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
-
             </div>
 
         </div>
+
     </div>
 @endsection

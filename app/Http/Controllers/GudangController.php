@@ -10,6 +10,7 @@ class GudangController extends Controller
     {
         return view('pages.gudang.index', [
             'title' => 'Gudang',
+            'active' => 'TransaksiG',
         ]);
     }
 }

@@ -16,6 +16,7 @@ class KategoriController extends Controller
 
         return view('pages.kategori.index', [
             'title' => 'Kategori',
+            'active' => 'Kategori',
             'kategori' => $kategori,
         ]);
     }
@@ -23,7 +24,8 @@ class KategoriController extends Controller
     public function create()
     {
         return view('pages.kategori.create', [
-            'title' => 'Kategori',
+            'title' => 'Tambah Kategori',
+            'active' => 'kategori',
         ]);
     }
 
@@ -75,6 +77,7 @@ class KategoriController extends Controller
     {
         return view('pages.kategori.edit', [
             'title' => 'Edit Kategori',
+            'active' => 'kategori',
             'kategori' => KategoriModel::findOrFail($id)
         ]);
     }

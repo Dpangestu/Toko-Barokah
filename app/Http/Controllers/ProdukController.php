@@ -17,6 +17,7 @@ class ProdukController extends Controller
 
         return view('pages.produk.index', [
             'title' => 'Produk',
+            'active' => 'Produk',
             'produk' => $produk,
         ]);
     }
@@ -24,7 +25,8 @@ class ProdukController extends Controller
     public function create()
     {
         return view('pages.produk.create', [
-            'title' => 'Produk',
+            'title' => 'Tambah Produk',
+            'active' => 'Produk',
             'kategori' => KategoriModel::all(),
         ]);
     }
@@ -81,6 +83,7 @@ class ProdukController extends Controller
     {
         return view('pages.produk.edit', [
             'title' => 'Edit Produk',
+            'active' => 'produk',
             'produk' => ProdukModel::findOrFail($id),
             'kategori' => KategoriModel::all(),
         ]);

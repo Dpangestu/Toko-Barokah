@@ -17,6 +17,7 @@ class SupplierController extends Controller
 
         return view('pages.supplier.index', [
             'title' => 'Supplier',
+            'active' => 'Supplier',
             'supplier' => $supplier,
         ]);
     }
@@ -24,7 +25,8 @@ class SupplierController extends Controller
     public function create()
     {
         return view('pages.supplier.create', [
-            'title' => 'Supplier',
+            'title' => 'Tambah Supplier',
+            'active' => 'Supplier',
         ]);
     }
 
@@ -77,6 +79,7 @@ class SupplierController extends Controller
     {
         return view('pages.supplier.edit', [
             'title' => 'Edit supplier',
+            'active' => 'Supplier',
             'supplier' => SuppilerModel::findOrFail($id)
         ]);
     }

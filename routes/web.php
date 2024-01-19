@@ -63,11 +63,12 @@ Route::controller(KategoriController::class)->group(function () {
 });
 
 Route::controller(GudangController::class)->group(function () {
-    Route::get('/gudang', 'index');
+    Route::get('/transaksi-gudang', 'index');
 });
 
 Route::controller(TokoController::class)->group(function () {
-    Route::get('/toko', 'index');
+    Route::get('/transaksi-toko', 'index');
+    Route::get('/transaksi-toko/create', 'create')->name('transaksi.toko.create');
 });
 
 Route::controller(LaporanController::class)->group(function () {

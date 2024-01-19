@@ -10,6 +10,7 @@ class TransaksiController extends Controller
     {
         return view('pages.transaksi.index', [
             'title' => 'Transaksi',
+            'active' => 'TransaksiT',
         ]);
     }
 }

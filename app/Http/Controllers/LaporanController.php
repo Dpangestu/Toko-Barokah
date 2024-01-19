@@ -10,6 +10,7 @@ class LaporanController extends Controller
     {
         return view('pages.laporan.index', [
             'title' => 'Laporan',
+            'active' => 'Laporan',
         ]);
     }
 }
