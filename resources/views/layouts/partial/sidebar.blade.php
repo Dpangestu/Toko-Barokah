@@ -64,7 +64,7 @@
         </li>
 
         <li class="menu-item {{ $active === 'TransaksiT' ? ' active' : '' }}">
-            <a href="/transaksi-toko" class="menu-link ">
+            <a href="/transaksi" class="menu-link ">
                 <i class="menu-icon tf-icons bx bxs-cart-download"></i>
                 <div data-i18n="Account Settings">Transaksi Toko</div>
             </a>

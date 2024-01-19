@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,9 +68,13 @@ Route::controller(GudangController::class)->group(function () {
     Route::get('/transaksi-gudang', 'index');
 });
 
-Route::controller(TokoController::class)->group(function () {
-    Route::get('/transaksi-toko', 'index');
-    Route::get('/transaksi-toko/create', 'create')->name('transaksi.toko.create');
+Route::controller(TransaksiController::class)->group(function () {
+    Route::get('/transaksi', 'index');
+    Route::get('/transaksi/create', 'create')->name('transaksi.create');
+    Route::post('/transaksi/store', 'store')->name('transaksi.store');
+});
+Route::controller(DetailTransaksiController::class)->group(function () {
+    Route::get('/transaksi/data/{id}', 'data')->name('transaksi.data');
 });
 
 Route::controller(LaporanController::class)->group(function () {
