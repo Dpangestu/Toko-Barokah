@@ -102,6 +102,11 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
+    <!-- Add this script tag to include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="path/to/bootstrap.js"></script>
+
+
 </body>
 
 </html>

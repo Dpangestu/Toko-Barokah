@@ -12,7 +12,7 @@
                         <div class="card-header">
                             <div class="add-button-container">
                                 <h4>Data Produk</h4>
-                                <a href="{{ route('transaksi.toko.create') }}" class="btn btn-primary add-button">
+                                <a href="{{ route('transaksi.create') }}" class="btn btn-primary add-button">
                                     <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Transaksi Baru
                                 </a>
                             </div>
