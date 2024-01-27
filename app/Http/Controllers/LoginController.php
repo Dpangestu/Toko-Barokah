@@ -12,4 +12,14 @@ class LoginController extends Controller
             'title' => 'Login',
         ]);
     }
+
+    public function login_proses(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+
+        ]);
+    }
+
 }

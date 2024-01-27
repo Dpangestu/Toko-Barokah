@@ -105,6 +105,26 @@
     <!-- Add this script tag to include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="path/to/bootstrap.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var searchInput = document.getElementById('searchInput');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    var searchValue = this.value.toLowerCase();
+
+                    // Panggil fungsi pencarian sesuai kebutuhan, contohnya:
+                    // searchInTable(searchValue);
+                });
+            }
+        });
+
+        function searchInTable(keyword) {
+            // Logika pencarian di dalam tabel
+            // Sesuaikan dengan struktur tabel dan implementasi pencarian Anda
+        }
+    </script>
+
 
 
 </body>

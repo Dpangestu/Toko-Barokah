@@ -14,6 +14,8 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,8 +32,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::controller(LoginController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('login');
+    Route::post('/login-proses', 'login_proses')->name('login_proses');
 });
+
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index');
@@ -65,7 +69,12 @@ Route::controller(KategoriController::class)->group(function () {
 });
 
 Route::controller(GudangController::class)->group(function () {
-    Route::get('/transaksi-gudang', 'index');
+    Route::get('/gudang', 'index');
+    Route::get('/gudang/create', 'create');
+    Route::post('/gudang/store', 'store');
+    Route::get('/gudang/edit/{id}', 'edit');
+    Route::post('/gudang/update/{id}', 'update');
+    Route::delete('/gudang/delete/{id}', 'destroy');
 });
 
 Route::controller(TransaksiController::class)->group(function () {
@@ -83,8 +92,11 @@ Route::controller(LaporanController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/users', 'index');
+    Route::get('/users/data', 'data')->name('users.data');
 });
 
 Route::controller(SettingController::class)->group(function () {
     Route::get('/setting', 'index');
+    Route::get('/setting/frist', 'show')->name('setting.show');
+    Route::post('/setting', 'update')->name('setting.update');
 });
