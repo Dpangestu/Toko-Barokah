@@ -55,8 +55,8 @@
             <span class="menu-header-text">Transaksi</span>
         </li>
 
-        <li class="menu-item {{ $active === 'TransaksiG' ? ' active' : '' }}">
-            <a href="/transaksi-gudang" class="menu-link ">
+        <li class="menu-item {{ $active === 'Gudang' ? ' active' : '' }}">
+            <a href="/gudang" class="menu-link ">
                 <i class="menu-icon tf-icons bx bxs-cart-add"></i>
                 <div data-i18n="Account Settings">Transaksi Gudang</div>
             </a>

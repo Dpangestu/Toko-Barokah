@@ -13,7 +13,7 @@
                             <div class="add-button-container">
                                 <h4>Data Kategori</h4>
                                 <a href="/kategori/create" class="btn btn-primary add-button">
-                                    <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Tambah Supplier
+                                    <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Tambah Kategori
                                 </a>
                             </div>
                         </div>
@@ -52,8 +52,8 @@
                                                             <a href="#" class="dropdown-item"
                                                                 onclick="confirmDelete({{ $item->id_kategori }})"><i
                                                                     class="bx bx-trash me-1"></i>Delete</a>
-                                                            </a>
                                                         </form>
+
                                                     </div>
                                                 </div>
                                             </td>

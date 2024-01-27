@@ -95,7 +95,7 @@ class SupplierController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:40',
             'alamat' => 'required',
-            'telepon' => 'required|integer'
+            'telepon' => 'required'
         ], [
             'required' => 'Kolom :attribute harus diisi.',
             'max' => [

@@ -25,7 +25,7 @@
                                         <th>Nama Produk</th>
                                         <th>Merk</th>
                                         <th>Harga Beli</th>
-                                        <th>Diskon</th>
+                                        {{-- <th>Diskon</th> --}}
                                         <th>Harga Jual</th>
                                         <th>Stok</th>
                                         <th>Aksi</th>
@@ -38,9 +38,9 @@
                                             <td><?= $i++ ?></td>
                                             <td>{{ $item->nama_produk }}</td>
                                             <td>{{ $item->merk }}</td>
-                                            <td>{{ $item->harga_beli }}</td>
-                                            <td>{{ $item->diskon }}</td>
-                                            <td>{{ $item->harga_jual }}</td>
+                                            <td>Rp. {{ number_format($item->harga_beli, 0, ',', ',') }}</td>
+                                            {{-- <td>{{ number_format($item->diskon, 0, ',', '.') }}</td> --}}
+                                            <td>Rp. {{ number_format($item->harga_jual, 0, ',', ',') }}</td>
                                             <td>{{ $item->stok }}</td>
                                             <td>
                                                 <div class="dropdown">

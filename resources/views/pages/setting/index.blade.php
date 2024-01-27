@@ -1,57 +1,127 @@
 @extends('layouts.main')
 @section('content')
+    @include('component.sweetAlert')
     <div class="content-wrapper">
-        <!-- Content -->
-
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4">Setting Perusahaan</h4>
-
-            <div class="row">
-                <div class="card">
-                    <h5 class="card-header">Perusahaan</h5>
-                    <div class="table-responsive text-nowrap">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nama Perusahaan</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
-                                    <th>Tipe Nota</th>
-                                    <th>Path Logo</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                <tr>
-                                    <td>
-                                        <i class="bx bxl-angular bx-sm text-danger me-3"></i>
-                                        <span class="fw-medium">Angular Project</span>
-                                    </td>
-                                    <td>Albert Cook</td>
-                                    <td>081xxxx</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-trash me-1"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+            <div class="col-xxl">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="add-button-container">
+                            <h4>Setting Perusahaan</h4>
+                        </div>
                     </div>
+                    <form action="{{ route('setting.update') }}" method="post" class="form-setting" data-toggle="validator"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="box-body">
+                            @foreach ($setting as $settingItem)
+                                <div class="form-group row mb-4">
+                                    <label for="nama_perusahaan" class="col-lg-2 control-label text-end">Nama
+                                        Perusahaan</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" value="{{ $settingItem->nama_perusahaan }}"
+                                            name="nama_perusahaan" class="form-control" id="nama_perusahaan" required
+                                            autofocus>
+                                        <span class="help-block with-errors"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label for="telepon" class="col-lg-2 control-label text-end">Telepon</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" value="{{ $settingItem->telepon }}" name="telepon"
+                                            class="form-control" id="telepon" required>
+                                        <span class="help-block with-errors"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label for="alamat" class="col-lg-2 control-label text-end">Alamat</label>
+                                    <div class="col-lg-6">
+                                        <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ $settingItem->alamat }}</textarea>
+                                        <span class="help-block with-errors"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label for="path_logo" class="col-lg-2 control-label text-end">Logo Perusahaan</label>
+                                    <div class="col-lg-3">
+                                        <input type="file" name="path_logo" class="form-control" id="path_logo"
+                                            onchange="preview('.tampil-logo', this.files[0])">
+                                        <span class="help-block with-errors"></span>
+                                        <br>
+                                        <div class="tampil-logo">
+                                            <img src="{{ url('/') }}{{ $settingItem->path_logo }}" width="200">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tambahkan bidang dan elemen formulir lainnya di sini -->
+                            @endforeach
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-lg-6 offset-lg-2">
+                                <button type="submit" class="btn btn-primary me-2 float-end">Simpan</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
         </div>
-    @endsection
+    </div>
+@endsection
+
+
+@push('scripts')
+    <script>
+        $(function() {
+            showData();
+
+            $('.form-setting').validator().on('submit', function(e) {
+                if (!e.preventDefault()) {
+                    $.ajax({
+                            url: $('.form-setting').attr('action'),
+                            type: $('.form-setting').attr('method'),
+                            data: new FormData($('.form-setting')[0]),
+                            async: false,
+                            processData: false,
+                            contentType: false
+                        })
+                        .done(response => {
+                            showData();
+                            $('.alert').fadeIn();
+
+                            setTimeout(() => {
+                                $('.alert').fadeOut();
+                            }, 3000);
+                        })
+                        .fail(errors => {
+                            alert('Tidak dapat menyimpan data');
+                            return;
+                        });
+                }
+            });
+        });
+
+        function showData() {
+            $.get('{{ route('setting.show') }}')
+                .done(response => {
+                    $('[name=nama_perusahaan]').val(response.nama_perusahaan);
+                    $('[name=telepon]').val(response.telepon);
+                    $('[name=alamat]').val(response.alamat);
+                    $('title').text(response.nama_perusahaan + ' | Pengaturan');
+
+                    let words = response.nama_perusahaan.split(' ');
+                    let word = '';
+                    words.forEach(w => {
+                        word += w.charAt(0);
+                    });
+                    $('.logo-mini').text(word);
+                    $('.logo-lg').text(response.nama_perusahaan);
+
+                    $('.tampil-logo').html(`<img src="{{ url('/') }}${response.path_logo}" width="200">`);
+                    $('[rel=icon]').attr('href', `{{ url('/') }}/${response.path_logo}`);
+                })
+                .fail(errors => {
+                    alert('Tidak dapat menampilkan data');
+                    return;
+                });
+        }
+    </script>
+@endpush

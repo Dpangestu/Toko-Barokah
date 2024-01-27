@@ -1,50 +1,65 @@
 @extends('layouts.main')
 @section('content')
+    @include('component.sweetAlert')
     <div class="content-wrapper">
-        <!-- Content -->
-
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4">Gudang</h4>
-
+            <h4 class="fw-bold py-3 mb-2">
+                <span class="text-muted fw-light">Dashboard /</span> Gudang
+            </h4>
             <div class="row">
-                <div class="card">
-                    <h5 class="card-header">Transaksi Gudang</h5>
-                    <div class="table-responsive text-nowrap">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Harga Beli</th>
-                                    <th>Jumlah</th>
-                                    <th>Sub Total</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                <tr>
-                                    <td>
-                                        <i class="bx bxl-angular bx-sm text-danger me-3"></i>
-                                        <span class="fw-medium">Angular Project</span>
-                                    </td>
-                                    <td>Albert Cook</td>
-                                    <td>081xxxx</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-trash me-1"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="add-button-container">
+                                <h4>Transaksi Gudang</h4>
+                                <a href="/gudang/create" class="btn btn-primary add-button">
+                                    <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Tambah Gudang
+                                </a>
+                            </div>
+                        </div>
+                        <div class="table-responsive text-nowrap">
+                            <table id="userTable" class="table table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>no</th>
+                                        <th>Deskripsi</th>
+                                        <th>Nominal</th>
+                                        <th>Aksi</th>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    <?php $i = 1; ?>
+                                    @foreach ($gudang as $item)
+                                        <tr>
+                                            <td><?= $i++ ?></td>
+                                            <td>{{ $item->deskripsi }}</td>
+                                            <td>Rp. {{ number_format($item->nominal, 0, ',', ',') }}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item"
+                                                            href="/gudang/edit/{{ $item->id_pengeluaran }}"><i
+                                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                        <form id="deleteForm{{ $item->id_pengeluaran }}"
+                                                            action="/gudang/delete/{{ $item->id_pengeluaran }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="#" class="dropdown-item"
+                                                                onclick="confirmDelete({{ $item->id_pengeluaran }})"><i
+                                                                    class="bx bx-trash me-1"></i>Delete</a>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
