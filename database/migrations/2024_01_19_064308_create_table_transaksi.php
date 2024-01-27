@@ -13,16 +13,19 @@ class CreateTableTransaksi extends Migration
      */
     public function up()
     {
-        Schema::create('transaksi', function (Blueprint $table) {
+         Schema::create('transaksi', function (Blueprint $table) {
             $table->id('id_transaksi');
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('users');
-            $table->integer('total_item');
-            $table->integer('total_harga');
-            $table->tinyInteger('diskon')->default(0);
-            $table->integer('bayar')->default(0);
-            $table->integer('diterima')->default(0);
+            $table->foreignId('id_user')->nullable();
+            $table->json('details'); // Kolom untuk menyimpan rincian produk dalam format JSON
+            $table->integer('jumlah_item'); // Kolom untuk menyimpan total jumlah item dalam transaksi
+            $table->decimal('total_harga', 10, 2);
+            $table->decimal('diskon', 10, 2)->default(0);
+            $table->decimal('bayar', 10, 2);
+            $table->decimal('diterima', 10, 2);
+            $table->decimal('kembali', 10, 2)->default(0);
             $table->timestamps();
+
+            // $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

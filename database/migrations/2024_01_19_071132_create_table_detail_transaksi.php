@@ -15,14 +15,12 @@ class CreateTableDetailTransaksi extends Migration
     {
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id('id_detail_transaksi');
-            $table->unsignedBigInteger('id_transaksi');
-            $table->unsignedBigInteger('id_produk');
-            $table->integer('quantity');
-            $table->decimal('harga', 8, 2);
+             $table->foreignId('id_transaksi')->references('id_transaksi')->on('transaksi');
+            $table->foreignId('id_produk')->nullable();
+            $table->integer('qty');
+            $table->decimal('harga', 10, 2);
+            // Tambahkan kolom lainnya sesuai kebutuhan
             $table->timestamps();
-
-            $table->foreign('id_transaksi')->references('id_transaksi')->on('transaksi');
-            $table->foreign('id_produk')->references('id_produk')->on('produk');
         });
     }
 

@@ -65,6 +65,17 @@
 </script>
 {{-- @endforeach --}}
 
+<script>
+    function showAlert(icon, title, text) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: true
+        });
+    }
+</script>
+
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">

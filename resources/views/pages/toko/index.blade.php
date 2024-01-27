@@ -22,48 +22,27 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Produk</th>
-                                        <th>Merk</th>
-                                        <th>Harga Beli</th>
+                                        <th>Jumlah Item</th>
+                                        <th>Total Harga</th>
                                         <th>Diskon</th>
-                                        <th>Harga Jual</th>
-                                        <th>Stok</th>
-                                        <th>Aksi</th>
+                                        <th>Bayar</th>
+                                        <th>Diterima</th>
+                                        <th>Kembali</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                     <?php $i = 1; ?>
-
-                                    <tr>
-                                        <td><?= $i++ ?></td>
-                                        <td>A</td>
-                                        <td>B</td>
-                                        <td>C</td>
-                                        <td>D</td>
-                                        <td>E</td>
-                                        <td>F</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/produk/edit/ID"><i
-                                                            class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <form id="deleteFormID" action="/produk/delete/ID" method="POST"
-                                                        class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a href="#" class="dropdown-item"
-                                                            onclick="confirmDelete(ID)"><i
-                                                                class="bx bx-trash me-1"></i>Delete</a>
-                                                        </a>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($transaksi as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->jumlah_item }} Item</td>
+                                            <td>Rp. {{ number_format($item->total_harga, 3, ',', ',') }}</td>
+                                            <td>Rp. {{ number_format($item->diskon, 0, ',', ',') }}</td>
+                                            <td>Rp. {{ number_format($item->bayar, 3, ',', ',') }}</td>
+                                            <td>Rp. {{ number_format($item->diterima, 0, ',', ',') }}</td>
+                                            <td>Rp. {{ number_format($item->kembali, 3, ',', ',') }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

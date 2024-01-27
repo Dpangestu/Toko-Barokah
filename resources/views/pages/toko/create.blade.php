@@ -36,13 +36,13 @@
             </h4>
             <div class="col-xxl">
                 <div class="card mb-4">
+
                     <div class="card-body">
                         <form class="form-produk">
-                            @csrf
+                            <div class="add-button-container">
+                                <div class="form-group row">
+                                    <label for="id_produk" class="form-label">Pilih Produk:</label>
 
-                            <div class="form-group row">
-                                <label for="id_produk" class="form-label">Pilih Produk:</label>
-                                <div class="col-lg-5">
                                     <div class="input-group">
                                         <input type="text" class="form-control"
                                             placeholder="klik tombol untuk menambahkan produk"
@@ -54,13 +54,14 @@
                                         </button>
 
                                     </div>
-
                                 </div>
+                                <a href="{{ route('transaksi') }}" class="btn btn-primary add-button">
+                                    <span class="tf-icons bx bx-left-arrow-circle"></span>&nbsp;Kembali
+                                </a>
                             </div>
                         </form>
 
                         <br>
-
                         <div class="table-responsive text-nowrap">
                             <table id="userTable" class="table table-striped">
                                 <thead class="table-light">
@@ -73,14 +74,6 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <?php $i = 1; ?>
-                                    <tr id="selectedRow">
-                                        <td><?= $i++ ?></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -89,56 +82,49 @@
 
                         <div class="row">
                             <div class="col-lg-8">
-                                <div class="tampil-bayar bg-primary"></div>
+                                <div class="tampil-bayar bg-primary text-white"></div>
                                 <div class="tampil-terbilang"></div>
                             </div>
                             <div class="col-lg-4">
-                                <form action="{{ route('transaksi.store') }}" method="POST" class="form-penjualan">
-                                    @csrf
-                                    <input type="hidden" name="id_penjualan" value="">
-                                    <input type="hidden" name="total" id="total">
-                                    <input type="hidden" name="total_item" id="total_item">
-                                    <input type="hidden" name="bayar" id="bayar">
-                                    <input type="hidden" name="id_member" id="id_member" value="">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="totalrp" class="col-lg-6 control-label">Total</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" id="totalrp" name="total_harga" class="form-control"
+                                            readonly disabled>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="diskon" class="col-lg-6 control-label">Diskon</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" name="diskon" id="diskon" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="bayar" class="col-lg-6 control-label">Bayar</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" id="bayarrp" name="bayar" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="diterima" class="col-lg-6 control-label">Diterima</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" id="diterima" class="form-control" name="diterima">
+                                    </div>
+                                </div>
 
-                                    <div class="mb-3">
-                                        <label for="totalrp" class="col-lg-2 control-label">Total</label>
-                                        <div class="col-lg-12">
-                                            <input type="text" id="totalrp" class="form-control" readonly>
-                                        </div>
+                                <div class="mb-3">
+                                    <label for="kembali" class="col-lg-6 control-label">Kembali</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" id="kembali" name="kembali" class="form-control" disabled>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="diskon" class="col-lg-2 control-label">Diskon</label>
-                                        <div class="col-lg-12">
-                                            <input type="number" name="diskon" id="diskon" class="form-control"
-                                                value="" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="bayar" class="col-lg-2 control-label">Bayar</label>
-                                        <div class="col-lg-12">
-                                            <input type="text" id="bayarrp" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="diterima" class="col-lg-2 control-label">Diterima</label>
-                                        <div class="col-lg-12">
-                                            <input type="number" id="diterima" class="form-control" name="diterima"
-                                                value="">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="kembali" class="col-lg-2 control-label">Kembali</label>
-                                        <div class="col-lg-12">
-                                            <input type="text" id="kembali" name="kembali" class="form-control"
-                                                value="0" readonly>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
 
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i
-                                            class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"
+                                        onclick="simpanTransaksi()">
+                                        <i class="fa fa-floppy-o"></i> Simpan Transaksi
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +162,7 @@
                                     <td>{{ $item->nama_produk }}</td>
                                     <td>{{ $item->harga_jual }}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs btn-flat"
+                                        <a type="button" class="btn btn-primary btn-sm"
                                             onclick="pilihProduk('{{ $item->id_produk }}', '{{ $item->nama_produk }}', '{{ $item->harga_jual }}')">
                                             <i class="fa fa-check-circle"></i>
                                             Pilih
@@ -193,18 +179,275 @@
     {{-- End Modal Produk --}}
 
     <script>
-        function pilihProduk(id, nama, harga) {
-            // Update the content of the main table with the selected data
-            document.getElementById('selectedRow').innerHTML = `
-            <td>${id}</td>
-            <td>${nama}</td>
-            <td>${harga}</td>
-            <td>1</td>
-            <td>Aksi</td>
-        `;
+        document.addEventListener("DOMContentLoaded", function() {
+            // Menangani perubahan pada input diskon
+            document.getElementById('diskon').addEventListener('input', function() {
+                calculateTotals();
+                formatRupiahInput(this);
+            });
 
-            // Close the modal (optional)
-            $('#produkList' + id).modal('hide');
+            // Menangani perubahan pada input diterima
+            document.getElementById('diterima').addEventListener('input', function() {
+                calculateTotals();
+                formatRupiahInput(this);
+            });
+
+            // Menangani klik pada tombol simpan
+            document.querySelector('.btn-simpan').addEventListener('click', function() {
+                console.log('Simpan button clicked');
+
+                if (!this.classList.contains('clicked')) {
+                    this.classList.add('clicked'); // Tandai tombol sebagai sudah diklik
+                    simpanTransaksi();
+                }
+            });
+
+        });
+
+        function pilihProduk(id, nama, harga) {
+            var newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+                <td></td>
+                <td>${nama}</td>
+                <td>${harga}</td>
+                <td><input type="number" class="form-control qty-input" value="1" min="1" onchange="updateQty()"></td>
+                <td><button type="button" class="btn btn-danger btn-sm" onclick="hapusProduk(this)">X</button></td>
+            `;
+
+            document.getElementById('userTable').getElementsByTagName('tbody')[0].appendChild(newRow);
+
+            updateNomorUrut();
+            calculateTotals();
+
+            $('#produkList').modal('hide');
+        }
+
+        function updateNomorUrut() {
+            var rows = document.getElementById('userTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].getElementsByTagName('td')[0].innerText = i + 1;
+            }
+        }
+
+        function updateQty(input) {
+            calculateTotals();
+        }
+
+        function hapusProduk(button) {
+            // console.log('hapusProduk function called');
+            var row = button.parentNode.parentNode;
+            // console.log('Row to be removed:', row);
+            row.parentNode.removeChild(row);
+            updateNomorUrut();
+            calculateTotals();
+        }
+
+
+        function calculateTotals() {
+            var rows = document.getElementById('userTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            var total = 0;
+
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var qty = parseInt(cells[3].getElementsByTagName('input')[0].value);
+                var harga = parseFloat(cells[2].innerText.replace(/[^\d.-]/g, ''));
+                total += qty * harga;
+            }
+
+            var diskonInput = document.getElementById('diskon').value;
+            var bayarInput = document.getElementById('diterima').value;
+
+            // Hilangkan karakter non-digit dari input dan konversi ke angka desimal
+            var diskon = parseFloat(diskonInput.replace(/[^\d.-]/g, '')) || 0;
+            var bayar = parseFloat(bayarInput.replace(/[^\d.-]/g, '')) || 0;
+
+            var totalBayar = total - diskon;
+            var kembali = bayar - totalBayar;
+
+            document.getElementById('totalrp').value = 'Rp ' + formatRupiah(total.toFixed(0));
+            document.getElementById('bayarrp').value = 'Rp ' + formatRupiah(totalBayar.toFixed(0));
+            document.getElementById('kembali').value = 'Rp ' + formatRupiah(kembali.toFixed(0));
+
+            document.querySelector('.tampil-bayar').innerText = 'Total: Rp ' + formatRupiah(totalBayar.toFixed(0));
+            document.querySelector('.tampil-terbilang').innerText = 'Terbilang: ' + terbilang(totalBayar.toFixed(0)) +
+                ' Rupiah';
+        }
+
+        function formatRupiah(input) {
+            let value = input.replace(/[^\d.-]/g, "");
+
+            if (value !== "") {
+                // Pisahkan nilai dan desimal
+                const parts = value.split('.');
+                const intValue = parseInt(parts[0], 10).toLocaleString("id-ID");
+
+                // Gabungkan kembali dengan nilai desimal jika ada
+                value = parts.length > 1 ? intValue + "." + parts[1] : intValue;
+
+                return value;
+            } else {
+                return "";
+            }
+        }
+
+        function terbilang(n) {
+            var bilangan = [
+                '', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan'
+            ];
+
+            var satuan = ['', ' Ribu', ' Juta', ' Miliar', 'Triliun'];
+            var hasil = '';
+
+            for (var i = 0; i < satuan.length; i++) {
+                var ratusan = n % 1000;
+                n = Math.floor(n / 1000);
+
+                if (ratusan !== 0) {
+                    var hasilRatusan = '';
+
+                    if (ratusan >= 100) {
+                        hasilRatusan += bilangan[Math.floor(ratusan / 100)] + ' Ratus ';
+                        ratusan %= 100;
+                    }
+
+                    if (ratusan >= 10 && ratusan <= 19) {
+                        hasilRatusan += bilangan[ratusan - 10] + ' Belas ';
+                    } else if (ratusan >= 20 || ratusan <= 9) {
+                        hasilRatusan += bilangan[Math.floor(ratusan / 10)] + ' Puluh ';
+                        ratusan %= 10;
+                    }
+
+                    if (ratusan > 0) {
+                        hasilRatusan += bilangan[ratusan];
+                    }
+
+                    hasil = hasilRatusan + satuan[i] + ' ' + hasil;
+                }
+            }
+
+            return hasil.trim();
+        }
+
+        // simpan
+
+        function simpanTransaksi() {
+            // Cegah klik ganda
+            if ($(".btn-simpan").prop("disabled")) {
+                return;
+            }
+
+            // Nonaktifkan tombol sebelum melakukan permintaan AJAX
+            $(".btn-simpan").prop("disabled", true);
+
+            var total_harga = parseCurrencyValue("#totalrp");
+            var diskon = parseCurrencyValue("#diskon");
+            var diterima = parseCurrencyValue("#diterima");
+            var bayar = parseCurrencyValue("#bayarrp");
+            var kembali = parseCurrencyValue("#kembali");
+
+            var details = [];
+            var rows = $("#userTable tbody tr");
+
+            rows.each(function(index, row) {
+                var cells = $(row).find('td');
+                var id_produk = cells.eq(1).text();
+                var qty = cells.eq(3).find('input').val();
+                var harga = cells.eq(2).text();
+
+                details.push({
+                    'id_produk': id_produk,
+                    'qty': qty,
+                    'harga': harga
+                });
+            });
+
+            var data = {
+                'total_harga': total_harga,
+                'diskon': diskon,
+                'bayar': bayar,
+                'diterima': diterima,
+                'kembali': kembali,
+                'details': details
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/transaksi/store',
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: JSON.stringify(data),
+                success: function(response) {
+                    console.log(response.message);
+
+                    // Show success alert
+                    showAlert('success', 'Success!', 'Transaksi berhasil disimpan!');
+
+                    // Reset form or perform other actions after success
+                    $("#userTable tbody").empty();
+                    $("#totalrp, #diskon, #diterima, #bayarrp, #diterima, #kembali").val('');
+                    document.querySelector('.tampil-bayar').innerText = '';
+                    document.querySelector('.tampil-terbilang').innerText = '';
+
+                    updateStokProduk(details);
+                    // window.location.href = '/transaksi';
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+
+                    // Show error alert
+                    showAlert('error', 'Error!', 'Transaksi gagal disimpan. Silakan coba lagi.');
+                },
+                complete: function() {
+                    // Enable the button after the request is complete, regardless of success or failure
+                    $(".btn-simpan").prop("disabled", false);
+                }
+            });
+        }
+
+        // Helper function to parse currency values
+        function parseCurrencyValue(selector) {
+            return parseFloat($(selector).val().replace(/[^\d.-]/g, '')) || 0;
+        }
+
+        // Helper function to show SweetAlert2 alerts
+        function showAlert(icon, title, text) {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: text,
+                showConfirmButton: true
+            });
+        }
+
+        function updateStokProduk(details) {
+            details.forEach(function(detail) {
+                var id_produk = detail.id_produk;
+                var qty = detail.qty;
+
+                // Mengurangi stok produk dengan melakukan permintaan AJAX ke server
+                $.ajax({
+                    type: 'POST',
+                    url: '/produk/update-stok',
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: JSON.stringify({
+                        'id_produk': id_produk,
+                        'qty': qty
+                    }),
+                    success: function(response) {
+                        console.log('Stok produk berhasil diperbarui.');
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating product stock:', xhr.responseText);
+                    }
+                });
+            });
         }
     </script>
 @endsection
