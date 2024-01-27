@@ -155,4 +155,30 @@ class ProdukController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil dihapus.');
     }
+
+     public function updateStok(Request $request)
+    {
+        // // Validasi request
+        // $validator = Validator::make($request->all(), [
+        //     'id_produk' => 'required|exists:produk,id_produk',
+        //     'qty' => 'required|integer|min:1',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json(['message' => 'Validasi gagal', 'errors' => $validator->errors()], 422);
+        // }
+
+        // Ambil data yang diperlukan dari request
+        $id_produk = $request->input('id_produk');
+        $qty = $request->input('qty');
+
+        try {
+            // Lakukan operasi pembaruan stok
+            ProdukModel::updateStok($id_produk, $qty);
+
+            return response()->json(['message' => 'Stok produk berhasil diperbarui'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal memperbarui stok produk', 'error' => $e->getMessage()], 500);
+        }
+    }
 }

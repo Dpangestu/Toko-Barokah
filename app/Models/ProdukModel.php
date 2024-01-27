@@ -25,4 +25,21 @@ class ProdukModel extends Model
     {
         return $this->belongsTo(KategoriModel::class, 'id_kategori', 'id_kategori');
     }
+
+    // Model ProdukModel
+
+    public static function getIdFromName($nama_produk) {
+        return self::where('nama_produk', $nama_produk)->value('id_produk');
+    }
+
+    public static function updateStok($id_produk, $qty)
+    {
+        $produk = self::find($id_produk);
+
+        if ($produk) {
+            $produk->stok -= $qty;
+            $produk->save();
+        }
+    }
+
 }

@@ -48,6 +48,7 @@ Route::controller(ProdukController::class)->group(function () {
     Route::get('/produk/edit/{id}', 'edit');
     Route::post('/produk/update/{id}', 'update');
     Route::delete('/produk/delete/{id}', 'destroy');
+    Route::post('/produk/update-stok', 'updateStok');
 });
 
 Route::controller(SupplierController::class)->group(function () {
@@ -78,7 +79,7 @@ Route::controller(GudangController::class)->group(function () {
 });
 
 Route::controller(TransaksiController::class)->group(function () {
-    Route::get('/transaksi', 'index');
+    Route::get('/transaksi', 'index')->name('transaksi');
     Route::get('/transaksi/create', 'create')->name('transaksi.create');
     Route::post('/transaksi/store', 'store')->name('transaksi.store');
 });
@@ -100,3 +101,4 @@ Route::controller(SettingController::class)->group(function () {
     Route::get('/setting/frist', 'show')->name('setting.show');
     Route::post('/setting', 'update')->name('setting.update');
 });
+
