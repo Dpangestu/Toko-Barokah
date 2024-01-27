@@ -11,6 +11,8 @@
     <title>{{ config('app.name') }}</title>
 
     <meta name="description" content="" />
+    <meta content="token" name="token" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('template/assets/img/favicon/1.png') }}" />

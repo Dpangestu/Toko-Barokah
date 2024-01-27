@@ -13,13 +13,19 @@ class DetailTransaksiModel extends Model
     protected $fillable = [
         'id_transaksi',
         'id_produk',
-        'total_harga',
-        'quantity',
+        'qty',
         'harga',
     ];
 
+    // Relasi ke tabel Transaksi
+    public function transaksi()
+    {
+        return $this->belongsTo(TransaksiModel::class, 'id_transaksi');
+    }
+
+    // Relasi ke tabel Produk
     public function produk()
     {
-        return $this->hasOne(ProdukModel::class, 'id_produk', 'id_produk');
+        return $this->belongsTo(ProdukModel::class, 'id_produk');
     }
 }
