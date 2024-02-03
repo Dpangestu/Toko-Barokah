@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,8 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeIsNotAdmin($query)
-    {
-        return $query->where('role', '!=', 1);
-    }
+    // public function scopeIsNotAdmin($query)
+    // {
+    //     return $query->where('role', '!=', 1);
+    // }
 }

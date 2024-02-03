@@ -24,7 +24,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="defaultSelect" class="form-label">Kategori</label>
-                                <select class="form-select mt-1" name="id_ketegori">
+                                <select class="form-select mt-1" name="id_kategori">
                                     <option selected disabledabled>-- Pilih Ketegori ---</option>
                                     @foreach ($kategori as $kat)
                                         <option value="{{ $kat->id_kategori }}"
@@ -56,8 +56,7 @@
                             <div class="row mb-3 py-3">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary me-2">Simpan</button>
-                                    <button type="reset" class="btn btn-danger me-2">Reset</button>
-                                    <a href="/produk" class="btn btn-warning me-2">Back</a>
+                                    <a href="/produk" class="btn btn-warning me-2">Kembali</a>
                                 </div>
                             </div>
                         </form>

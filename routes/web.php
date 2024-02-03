@@ -31,15 +31,22 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/', 'index')->name('login');
-    Route::post('/login-proses', 'login_proses')->name('login_proses');
-});
+// Route::controller(LoginController::class)->group(function () {
+//     Route::get('/', 'index')->name('login');
+//     Route::post('/login-proses', 'LoginController@login_proses')->name('login_proses');
+// });
+
+
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login_proses');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index');
+    Route::get('/dashboard', 'index')->name('dashboard');
 });
+// Route::get('/dashboard', [DashboardController::class, 'index']);
+
 
 Route::controller(ProdukController::class)->group(function () {
     Route::get('/produk', 'index');
@@ -78,23 +85,28 @@ Route::controller(GudangController::class)->group(function () {
     Route::delete('/gudang/delete/{id}', 'destroy');
 });
 
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/data', [UserController::class, 'data'])->name('user.data');
+Route::resource('users', UserController::class)->except(['index']);
+// Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::delete('/users/delete/{id}', [UserController::class, 'destroy']);
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+
+
 Route::controller(TransaksiController::class)->group(function () {
     Route::get('/transaksi', 'index')->name('transaksi');
     Route::get('/transaksi/create', 'create')->name('transaksi.create');
     Route::post('/transaksi/store', 'store')->name('transaksi.store');
 });
+
 Route::controller(DetailTransaksiController::class)->group(function () {
     Route::get('/transaksi/data/{id}', 'data')->name('transaksi.data');
 });
 
-Route::controller(LaporanController::class)->group(function () {
-    Route::get('/laporan', 'index');
-});
-
-Route::controller(UserController::class)->group(function () {
-    Route::get('/users', 'index');
-    Route::get('/users/data', 'data')->name('users.data');
-});
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
+Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
 
 Route::controller(SettingController::class)->group(function () {
     Route::get('/setting', 'index');

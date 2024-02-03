@@ -13,4 +13,5 @@ class DashboardController extends Controller
             'active' => 'Dashboard',
         ]);
     }
+
 }

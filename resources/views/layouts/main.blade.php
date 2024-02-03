@@ -44,6 +44,15 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js')}} in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('template/assets/js/config.js') }}"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+
 </head>
 
 <body>
@@ -90,6 +99,9 @@
     <script src="{{ asset('template/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('template/assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('/AdminLTE-2/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('/AdminLTE-2/bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
 
     <!-- endbuild -->
 

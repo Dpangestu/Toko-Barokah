@@ -24,77 +24,91 @@
             </a>
         </li>
 
-        <!-- Master Data -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Master Data</span>
-        </li>
+        @if (auth()->user()->role == 'admin')
+            <!-- Master Data -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Master Data</span>
+            </li>
 
-        <li class="menu-item {{ $active === 'Produk' ? ' active' : '' }}">
-            <a href="/produk" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-package"></i>
-                <div data-i18n="Analytics">Produk</div>
-            </a>
-        </li>
+            <li class="menu-item {{ $active === 'Produk' ? ' active' : '' }}">
+                <a href="/produk" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-package"></i>
+                    <div data-i18n="Analytics">Produk</div>
+                </a>
+            </li>
+        @endif
 
-        <li class="menu-item {{ $active === 'Supplier' ? ' active' : '' }}">
-            <a href="/supplier" class="menu-link ">
-                <i class="menu-icon tf-icons bx bxs-archive-in"></i>
-                <div data-i18n="Analytics">Supplier</div>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'admin')
+            <li class="menu-item {{ $active === 'Supplier' ? ' active' : '' }}">
+                <a href="/supplier" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bxs-archive-in"></i>
+                    <div data-i18n="Analytics">Supplier</div>
+                </a>
+            </li>
+        @endif
 
-        <li class="menu-item {{ $active === 'Kategori' ? ' active' : '' }}">
-            <a href="/kategori" class="menu-link ">
-                <i class="menu-icon tf-icons bx bxs-package"></i>
-                <div data-i18n="Analytics">Kategori</div>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'admin')
+            <li class="menu-item {{ $active === 'Kategori' ? ' active' : '' }}">
+                <a href="/kategori" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bxs-package"></i>
+                    <div data-i18n="Analytics">Kategori</div>
+                </a>
+            </li>
+        @endif
 
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Transaksi</span>
-        </li>
+        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'kasir')
+            {{-- @if (auth()->user()->role == 'admin' || auth()->user()->role == 'kasir' || auth()->user()->role == 'owner') --}}
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Transaksi</span>
+            </li>
 
-        <li class="menu-item {{ $active === 'Gudang' ? ' active' : '' }}">
-            <a href="/gudang" class="menu-link ">
-                <i class="menu-icon tf-icons bx bxs-cart-add"></i>
-                <div data-i18n="Account Settings">Transaksi Gudang</div>
-            </a>
-        </li>
-        </li>
+            <li class="menu-item {{ $active === 'Gudang' ? ' active' : '' }}">
+                <a href="/gudang" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bxs-cart-add"></i>
+                    <div data-i18n="Account Settings">Transaksi Gudang</div>
+                </a>
+            </li>
+            </li>
 
-        <li class="menu-item {{ $active === 'TransaksiT' ? ' active' : '' }}">
-            <a href="/transaksi" class="menu-link ">
-                <i class="menu-icon tf-icons bx bxs-cart-download"></i>
-                <div data-i18n="Account Settings">Transaksi Toko</div>
-            </a>
-        </li>
+            <li class="menu-item {{ $active === 'TransaksiT' ? ' active' : '' }}">
+                <a href="/transaksi" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bxs-cart-download"></i>
+                    <div data-i18n="Account Settings">Transaksi Toko</div>
+                </a>
+            </li>
+        @endif
 
-        <!-- Components -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Laporan</span></li>
-        <!-- Cards -->
-        <li class="menu-item {{ $active === 'Laporan' ? ' active' : '' }}">
-            <a href="/laporan" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-report"></i>
-                <div data-i18n="Analytics">Laporan</div>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'kasir' || auth()->user()->role == 'owner')
+            <!-- Components -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Laporan</span></li>
+            <!-- Cards -->
+            <li class="menu-item {{ $active === 'Laporan' ? ' active' : '' }}">
+                <a href="/laporan" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-report"></i>
+                    <div data-i18n="Analytics">Laporan</div>
+                </a>
+            </li>
+        @endif
 
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Sistem</span></li>
+        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'kasir' || auth()->user()->role == 'owner')
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Sistem</span></li>
+            <li class="menu-item {{ $active === 'Users' ? ' active' : '' }} ">
+                <a href="/users" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-user-circle"></i>
+                    <div data-i18n="Analytics">Users</div>
+                </a>
+            </li>
+        @endif
 
-        <li class="menu-item {{ $active === 'Users' ? ' active' : '' }} ">
-            <a href="/users" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-circle"></i>
-                <div data-i18n="Analytics">Users</div>
-            </a>
-        </li>
-
-        <li class="menu-item {{ $active === 'Setting' ? ' active' : '' }}">
-            <a href="/setting" class="menu-link ">
-                <i class="menu-icon tf-icons bx bxs-cog"></i>
-                <div data-i18n="Analytics">Setting</div>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'kasir')
+            <li class="menu-item {{ $active === 'Setting' ? ' active' : '' }}">
+                <a href="/setting" class="menu-link ">
+                    <i class="menu-icon tf-icons bx bxs-cog"></i>
+                    <div data-i18n="Analytics">Setting</div>
+                </a>
+            </li>
+        @endif
     </ul>
     <br>
 

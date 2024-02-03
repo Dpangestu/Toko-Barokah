@@ -13,7 +13,7 @@
                             <div class="add-button-container">
                                 <h4>Transaksi Gudang</h4>
                                 <a href="/gudang/create" class="btn btn-primary add-button">
-                                    <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Tambah Gudang
+                                    <span class="tf-icons bx bx-plus-circle"></span>&nbsp;Transaksi
                                 </a>
                             </div>
                         </div>

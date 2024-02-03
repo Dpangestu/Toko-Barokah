@@ -5,146 +5,108 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use DataTables;
+use ManagesCRUD;
 
 class UserController extends Controller
 {
     public function index()
     {
+        $users = User::select(['id', 'name', 'email', 'role'])->orderBy('id', 'desc')->get();
+
         return view('pages.users.index', [
             'title' => 'Users',
             'active' => 'Users',
+            'users' => $users, // Add this line to pass $users to the view
         ]);
     }
 
     public function data()
     {
-        $user = User::isNotAdmin()->orderBy('id', 'desc')->get();
+        $users = User::select(['id', 'name', 'email', 'role'])->orderBy('id', 'desc')->get();
 
         return datatables()
-            ->of($user)
+            ->of($users)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) {
                 return '
-                <div class="btn-group">
-                    <button type="button" onclick="editForm(`' . route('user.update', $user->id) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`' . route('user.destroy', $user->id) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                </div>
+                    <div class="btn-group">
+                        <button type="button" onclick="editForm(`' . route('users.update', $user->id) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
+                        <button type="button" onclick="deleteData(`' . route('users.destroy', $user->id) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    </div>
                 ';
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // public function store(Request $request)
+    // {
+    //     $user = new User();
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = bcrypt($request->password);
+    //     $user->save();
+
+    //     return response()->json('Data berhasil disimpan', 200);
+    // }
+
     public function store(Request $request)
     {
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->level = 2;
-        $user->foto = '/img/user.jpg';
+        $user->role = $request->role;
         $user->save();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return response()->json(['message' => 'Data berhasil disimpan']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $user = User::find($id);
         return response()->json($user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $title = 'Edit User';
+        $active = 'Users'; // Tambahkan ini sesuai dengan halaman yang sedang diakses
+        return view('pages.users.edit', compact('user', 'title', 'active'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        if ($request->has('password') && $request->password != "")
+
+        // Periksa apakah password diisi sebelum mengubahnya
+        if ($request->has('password') && $request->password != "") {
             $user->password = bcrypt($request->password);
+        }
+
         $user->update();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('users.edit', ['user' => $user->id])
+            ->with('success', 'Data berhasil disimpan');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function destroy($id)
     {
         $user = User::find($id)->delete();
 
         return response(null, 204);
     }
-
-    public function profil()
-    {
-        $profil = auth()->user();
-        return view('user.profil', compact('profil'));
-    }
-
-    public function updateProfil(Request $request)
-    {
-        $user = auth()->user();
-
-        $user->name = $request->name;
-        if ($request->has('password') && $request->password != "") {
-            if (Hash::check($request->old_password, $user->password)) {
-                if ($request->password == $request->password_confirmation) {
-                    $user->password = bcrypt($request->password);
-                } else {
-                    return response()->json('Konfirmasi password tidak sesuai', 422);
-                }
-            } else {
-                return response()->json('Password lama tidak sesuai', 422);
-            }
-        }
-
-
-        $user->update();
-
-        return response()->json($user, 200);
-    }
-
 }

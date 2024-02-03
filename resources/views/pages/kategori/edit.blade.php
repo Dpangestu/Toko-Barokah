@@ -32,7 +32,8 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary me-2">Simpan</button>
+                            <a href="/kategori" class="btn btn-warning me-2">Kembali</a>
                         </form>
                     </div>
                 </div>

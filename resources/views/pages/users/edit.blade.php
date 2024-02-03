@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4">Edit supplier</h4>
+            <h4 class="py-3 mb-4">Edit User</h4>
 
             @include('component.sweetAlert')
             <div class="row">
@@ -12,34 +12,32 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <form action="/supplier/update/{{ $supplier->id_supplier }}" enctype="multipart/form-data"
-                            method="post">
+                        <form action="/users/update/{{ $user->id }}" method="post">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Nama Supplier</label>
-                                <input type="text" class="form-control" name="nama" value="{{ $supplier->nama }}" />
-                                @error('nama')
+                                <label class="form-label" for="basic-default-fullname">Nama</label>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" />
+                                @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-company">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" value="{{ $supplier->alamat }}" />
-                                @error('alamat')
+                                <label class="form-label" for="basic-default-company">Email</label>
+                                <input type="text" class="form-control" name="email" value="{{ $user->email }}" />
+                                @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-company">Telepon</label>
-                                <input type="text" class="form-control" name="telepon"
-                                    value="{{ $supplier->telepon }}" />
-                                @error('telepon')
+                                <label class="form-label" for="basic-default-company">Password Baru</label>
+                                <input type="text" class="form-control" name="password" value="{{ $user->password }}" />
+                                @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="/gudang" class="btn btn-warning me-2">Kembali</a>
+                            <a href="/users" class="btn btn-warning me-2">Kembali</a>
                         </form>
                     </div>
                 </div>

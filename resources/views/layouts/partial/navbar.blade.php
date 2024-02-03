@@ -51,7 +51,7 @@
                             <i class="bx bx-cog me-2"></i>
                             <span class="align-middle">Settings</span>
                         </a>
-                        <a class="dropdown-item" href="#" onclick="$('#logout-form').submit()">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="$('#logout-form').submit()">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
                         </a>

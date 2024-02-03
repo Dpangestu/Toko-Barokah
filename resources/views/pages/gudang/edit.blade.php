@@ -31,7 +31,8 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="/gudang" class="btn btn-warning me-2">Kembali</a>
                         </form>
                     </div>
                 </div>

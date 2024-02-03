@@ -55,7 +55,7 @@
 
                                     </div>
                                 </div>
-                                <a href="{{ route('transaksi') }}" class="btn btn-primary add-button">
+                                <a href="/transaksi" class="btn btn-primary add-button">
                                     <span class="tf-icons bx bx-left-arrow-circle"></span>&nbsp;Kembali
                                 </a>
                             </div>

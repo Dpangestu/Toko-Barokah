@@ -156,7 +156,7 @@ class ProdukController extends Controller
         return redirect()->back()->with('success', 'Produk berhasil dihapus.');
     }
 
-     public function updateStok(Request $request)
+    public function updateStok(Request $request)
     {
         // // Validasi request
         // $validator = Validator::make($request->all(), [

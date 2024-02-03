@@ -1,6 +1,9 @@
 @extends('layouts.main')
 @section('content')
     @include('component.sweetAlert')
+    {{-- @if (isset($title))
+        <h3>{{ $title }}</h3>
+    @endif --}}
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-2">
@@ -22,16 +25,18 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
+                                        <th>Role</th>
+                                        <th>Nama Lengkap</th>
                                         <th>Email</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                     <?php $i = 1; ?>
-                                    @foreach ($users ?? [] as $item)
+                                    @foreach ($users as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td><?= $i++ ?></td>
+                                            <td>{{ $item->role }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>
@@ -41,16 +46,16 @@
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="/users/edit/{{ $item->id_user }}">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('users.edit', ['user' => $item->id]) }}">
                                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                                         </a>
-                                                        <form id="deleteForm{{ $item->id_user }}"
-                                                            action="/users/delete/{{ $item->id_user }}" method="POST"
-                                                            class="d-inline">
+                                                        <form action="{{ route('users.update', ['user' => $item->id]) }}"
+                                                            enctype="multipart/form-data" method="post">
                                                             @csrf
-                                                            @method('DELETE')
+                                                            @method('PUT')
                                                             <a href="#" class="dropdown-item"
-                                                                onclick="confirmDelete({{ $item->id_user }})">
+                                                                onclick="confirmDelete({{ $item->id }})">
                                                                 <i class="bx bx-trash me-1"></i>Delete
                                                             </a>
                                                         </form>
@@ -59,7 +64,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -77,32 +81,130 @@
                     <h5 class="modal-title" id="exampleModalLabel3">Tambah User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- Isi modal create sesuai kebutuhan -->
-                        <div class="col mb-3">
-                            <label for="nameLarge" class="form-label">Nama</label>
-                            <input type="text" id="nameLarge" class="form-control" placeholder="">
-                        </div>
-                        <div class="col mb-3">
-                            <label for="emailLarge" class="form-label">Email</label>
-                            <input type="text" id="emailLarge" class="form-control" placeholder="">
-                        </div>
-                        <div class="col mb-3">
-                            <label for="passwordLarge" class="form-label">Password</label>
-                            <input type="password" id="passwordLarge" class="form-control" placeholder="">
-                        </div>
-                        <div class="col mb-3">
-                            <label for="confirmPasswordLarge" class="form-label">Konfirmasi Password</label>
-                            <input type="password" id="confirmPasswordLarge" class="form-control" placeholder="">
+                <form id="createUserForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="roleLarge" class="form-label">Role</label>
+                                <select name="role" id="roleLarge" class="form-select">
+                                    <option value="admin">admin</option>
+                                    <option value="owner">owner</option>
+                                    <option value="kasir">kasir</option>
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label for="nameLarge" class="form-label">Nama Lengkap</label>
+                                <input type="text" name="name" id="nameLarge" class="form-control" placeholder="">
+                            </div>
+                            <div class="col mb-3">
+                                <label for="emailLarge" class="form-label">Email</label>
+                                <input type="text" name="email" id="emailLarge" class="form-control" placeholder="">
+                            </div>
+                            <div class="col mb-3">
+                                <label for="passwordLarge" class="form-label">Password</label>
+                                <input type="password" name="password" id="passwordLarge" class="form-control"
+                                    placeholder="">
+                            </div>
+                            <div class="col mb-3">
+                                <label for="confirmPasswordLarge" class="form-label">Konfirmasi Password</label>
+                                <input type="password" name="confirm_password" id="confirmPasswordLarge"
+                                    class="form-control" placeholder="">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="saveUser()">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.10/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#userTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('user.data') }}',
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'role',
+                        name: 'role'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+
+        function saveUser() {
+            var formData = $('#createUserForm').serialize() + "&_token={{ csrf_token() }}";
+            console.log('Fungsi saveUser dipanggil');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('users.store') }}',
+                data: formData,
+                success: function(response) {
+                    // Pastikan respons berupa objek
+                    console.log(response);
+
+                    // Jika respons berisi properti 'message'
+                    if (response.message) {
+                        Swal.fire({
+                            title: 'Sukses!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    } else {
+                        console.error('Tidak dapat menemukan properti pesan dalam respons.');
+                    }
+
+                    // Reload DataTables setelah penyimpanan berhasil
+                    $('#userTable').DataTable().ajax.reload();
+
+                    // Menutup modal setelah berhasil
+                    $('#largeModal').modal('hide');
+
+                    // Redirect kembali ke halaman Users setelah 500ms (sesuaikan waktu penundaan jika diperlukan)
+                    setTimeout(function() {
+                        window.location.href = '{{ route('users.index') }}';
+                    }, 500);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Terjadi kesalahan AJAX:', error);
+
+                    // Handle error message here, you can use SweetAlert2 for example
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Terjadi kesalahan saat menyimpan data.',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            });
+        }
+    </script>
 @endsection

@@ -1,10 +1,9 @@
 @extends('layouts.main')
-
 @section('content')
     <div class="content-wrapper">
         @include('component.sweetAlert')
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4">Tambah Transaksi</h4>
+            <h4 class="py-3 mb-4">Transaksi Gudang</h4>
             <div class="row">
                 <div class="card">
                     <div class="card-body">
@@ -30,9 +29,7 @@
                         </form>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 @endsection
